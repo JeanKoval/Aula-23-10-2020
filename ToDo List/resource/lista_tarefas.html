@@ -12,10 +12,11 @@
         <form method="POST" action="index.php">
             <label for="slc">Quais tarefas voce quer ver?</label>
             <select name="slc" id="slc">
-                <option value="1">Abertas</option>
-                <option value="2">Encerradas</option>
-                <option value="3" selected>Todas</option>
+                <option value="1" #TODAS>Todas</option>
+                <option value="2" #ENCERRADAS>Encerradas</option>
+                <option value="3" #ABERTAS>Abertas</option>
             </select>
+            <input type="submit" name="Filtrar">
         </form>
         <table class="table table-striped">
             <thead class="thead-dark">
