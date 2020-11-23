@@ -1,19 +1,28 @@
 <?php
 // index sera o ponto central
 
-//requerindo as classes
 require "src/classes/Tarefa.php";
 require "src/classes/ArquivoTarefa.php";
 
 // esta linha redireciona qualquer requisição no index para o endereco
 // header('Location: /resource/lista_tarefas.html');
 
-$escolha = $_POST['slc'] ? $_POST['slc'] : 1;
-
-if(isset($_POST['slc'])){
-    $escolha = $_POST['slc'];
+if(isset($_POST['slc-stt'])){
+    $escolha = $_POST['slc-stt'];
+    if($escolha==0){
+        $escolha=1;
+    }
 }else{
     $escolha = 1;
+}
+
+if(isset($_POST['slc-date'])){
+    $opcao = $_POST['slc-date'];
+    if($opcao==0){
+        $opcao="todos";
+    }
+}else{
+    $opcao = "todos";
 }
 
 $template = file_get_contents('resource/lista_tarefas.html');
@@ -25,45 +34,95 @@ $modeloTarefa = file_get_contents('resource/tarefa.html');
 
 $linhasTabela = '';
 
-
 if ($escolha == 1){
     foreach ($listaTarefasJSON as $tarefa) {
-        $tr = '';
-        $tr = str_replace('#STATUS', $tarefa->legenda(), $modeloTarefa);
-        $tr = str_replace('#ID',     $tarefa->getId(), $tr);
-        $tr = str_replace('#NOME',  $tarefa->getNome(), $tr);
-        $tr = str_replace('#DATALIMITE', $tarefa->getDataLimite(), $tr);
-        $tr = str_replace('#MARCADO', $tarefa->getStatus() == 0 ? 'checked' : '', $tr);
-        $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
-        $linhasTabela .= $tr;
-    }
-}
-
-if ($escolha == 2){
-    foreach ($listaTarefasJSON as $tarefa) {
-        if ($tarefa->getStatus() == 0){
+        switch($opcao){
+        case "todos":
             $tr = '';
             $tr = str_replace('#STATUS', $tarefa->legenda(), $modeloTarefa);
             $tr = str_replace('#ID',     $tarefa->getId(), $tr);
             $tr = str_replace('#NOME',  $tarefa->getNome(), $tr);
             $tr = str_replace('#DATALIMITE', $tarefa->getDataLimite(), $tr);
             $tr = str_replace('#MARCADO', $tarefa->getStatus() == 0 ? 'checked' : '', $tr);
-            $tr = str_replace('#ENCERRADAS', $escolha == 2  ? 'selected' : '', $tr);
+            $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
             $linhasTabela .= $tr;
+        case "personalizado":
+            if(($_POST['dateIni']<=$tarefa->getDataLimite())&&($_POST['dateFin']>=$tarefa->getDataLimite())){
+                $tr = '';
+                $tr = str_replace('#STATUS', $tarefa->legenda(), $modeloTarefa);
+                $tr = str_replace('#ID',     $tarefa->getId(), $tr);
+                $tr = str_replace('#NOME',  $tarefa->getNome(), $tr);
+                $tr = str_replace('#DATALIMITE', $tarefa->getDataLimite(), $tr);
+                $tr = str_replace('#MARCADO', $tarefa->getStatus() == 0 ? 'checked' : '', $tr);
+                $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
+                $linhasTabela .= $tr;
+            }
+        default:
+
+        }
+    }
+}
+
+if ($escolha == 2){
+    foreach ($listaTarefasJSON as $tarefa) {
+        if ($tarefa->getStatus() == 0){
+
+            switch($opcao){
+                case "todos":
+                    $tr = '';
+                    $tr = str_replace('#STATUS', $tarefa->legenda(), $modeloTarefa);
+                    $tr = str_replace('#ID',     $tarefa->getId(), $tr);
+                    $tr = str_replace('#NOME',  $tarefa->getNome(), $tr);
+                    $tr = str_replace('#DATALIMITE', $tarefa->getDataLimite(), $tr);
+                    $tr = str_replace('#MARCADO', $tarefa->getStatus() == 0 ? 'checked' : '', $tr);
+                    $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
+                    $linhasTabela .= $tr;
+                case "personalizado":
+                    if(($_POST['dateIni']<=$tarefa->getDataLimite())&&($_POST['dateFin']>=$tarefa->getDataLimite())){
+                        $tr = '';
+                    $tr = str_replace('#STATUS', $tarefa->legenda(), $modeloTarefa);
+                    $tr = str_replace('#ID',     $tarefa->getId(), $tr);
+                    $tr = str_replace('#NOME',  $tarefa->getNome(), $tr);
+                    $tr = str_replace('#DATALIMITE', $tarefa->getDataLimite(), $tr);
+                    $tr = str_replace('#MARCADO', $tarefa->getStatus() == 0 ? 'checked' : '', $tr);
+                    $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
+                    $linhasTabela .= $tr;
+                    }
+                default:
+        
+                }
         }
     }
 }
 
 if ($escolha == 3){
-    if ($tarefa->getStatus() == 1){
-        $tr = '';
-        $tr = str_replace('#STATUS', $tarefa->legenda(), $modeloTarefa);
-        $tr = str_replace('#ID',     $tarefa->getId(), $tr);
-        $tr = str_replace('#NOME',  $tarefa->getNome(), $tr);
-        $tr = str_replace('#DATALIMITE', $tarefa->getDataLimite(), $tr);
-        $tr = str_replace('#MARCADO', $tarefa->getStatus() == 0 ? 'checked' : '', $tr);
-        $tr = str_replace('#ABERTAS', $escolha == 3  ? 'selected' : '', $tr);
-        $linhasTabela .= $tr;
+    foreach ($listaTarefasJSON as $tarefa){
+        if ($tarefa->getStatus() == 1){
+            switch($opcao){
+                case "todos":
+                    $tr = '';
+                    $tr = str_replace('#STATUS', $tarefa->legenda(), $modeloTarefa);
+                    $tr = str_replace('#ID',     $tarefa->getId(), $tr);
+                    $tr = str_replace('#NOME',  $tarefa->getNome(), $tr);
+                    $tr = str_replace('#DATALIMITE', $tarefa->getDataLimite(), $tr);
+                    $tr = str_replace('#MARCADO', $tarefa->getStatus() == 0 ? 'checked' : '', $tr);
+                    $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
+                    $linhasTabela .= $tr;
+                case "personalizado":
+                    if($tarefa->getDataLimite()>=($_POST['dateIni'])&&($tarefa->getDataLimite()<=$_POST['dateFin'])){
+                        $tr = '';
+                    $tr = str_replace('#STATUS', $tarefa->legenda(), $modeloTarefa);
+                    $tr = str_replace('#ID',     $tarefa->getId(), $tr);
+                    $tr = str_replace('#NOME',  $tarefa->getNome(), $tr);
+                    $tr = str_replace('#DATALIMITE', $tarefa->getDataLimite(), $tr);
+                    $tr = str_replace('#MARCADO', $tarefa->getStatus() == 0 ? 'checked' : '', $tr);
+                    $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
+                    $linhasTabela .= $tr;
+                    }
+                default:
+        
+                }
+        }
     }
 }
 
@@ -78,5 +137,6 @@ if ($escolha == 3){
 // }
 
 echo str_replace('#TAREFAS', $linhasTabela, $template);
+
 
 
