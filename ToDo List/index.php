@@ -1,6 +1,7 @@
 <?php
 // index sera o ponto central
 
+//requerindo as classes
 require "src/classes/Tarefa.php";
 require "src/classes/ArquivoTarefa.php";
 
