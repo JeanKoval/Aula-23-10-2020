@@ -10,33 +10,34 @@
 <body>
     <div class="container">
         <div class="input-group mb-3">
-        <form action="index.php" method="post">
-            <div class="input-group mb-3">
-                <!-- <span>STATUS:</span> -->
-                <select name="slc-stt" id="slc-stt" class="custom-select" >
-                  <option selected value="0">Escolha o Status...</option>
-                  <option value="1">Todos</option>
-                  <option value="2">Encerradas</option>
-                  <option value="3">Abertas</option>
-                </select>
-                <select name="slc-date" id="slc-date" onchange="validaOpcao(this.value)" class="custom-select">
-                    <option selected value="0">Escolha a DataLimite...</option>
-                    <option value="1">Todas</option>
-                    <option value="2">Hoje</option>
-                    <option value="3">Personalizado</option>
-                </select>
-                <div id="filtroData">
-                    De:<input type="date" name="dateIni" class="custom-select">
-                    Até:<input type="date" name="dateFin" class="custom-select">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <form action="index.php" method="post">
+                <div class="input-group mb-3">
+                    <select name="slc-stt" id="slc-stt" class="custom-select" >
+                    <option selected value="0">Escolha o Status...</option>
+                    <option value="1">Todos</option>
+                    <option value="2">Encerradas</option>
+                    <option value="3">Abertas</option>
+                    </select>
+                    <select name="slc-date" id="slc-date" onchange="validaOpcao(this.value)" class="custom-select">
+                        <option selected value="0">Escolha a DataLimite...</option>
+                        <option value="1">Todas</option>
+                        <option value="2">Hoje</option>
+                        <option value="3">Personalizado</option>
+                    </select>
+                    <div id="filtroData">
+                        De<input type="date" name="dateIni" class="custom-select">
+                        Até<input type="date" name="dateFin" class="custom-select">
+                    </div>
+                    <div class="input-group-append">
+                    <input class="btn btn-outline-warning" name="Filtrar" type="submit" value="Filtrar">
+                    </div>
+                    <a class="btn btn-outline-success"  href="/resource/form.html">Cadastrar Nova Tarefa</a>
                 </div>
-                <div class="input-group-append">
-                  <input class="btn btn-outline-warning" name="Filtrar" type="submit" value="Filtrar">
-                </div>
-                <a class="btn btn-outline-success"  href="/resource/form.html">Cadastrar Nova Tarefa</a>
-            </div>
-        </form>       
+            </form>
+        </nav>       
         </div>
-        <table class="table table-striped">
+        <table class="table table-striped table-hover">
             <thead class="thead-dark">
                 <th>Status</th>
                 <th>ID</th>

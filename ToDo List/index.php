@@ -48,6 +48,7 @@ if ($escolha == 1){
                 $tr = str_replace('#MARCADO', $tarefa->getStatus() == 0 ? 'checked' : '', $tr);
                 $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
                 $linhasTabela .= $tr;
+            break;
             case 2:
                 if($diaAtual == $tarefa->getDataLimite()){
                     $tr = '';
@@ -59,6 +60,7 @@ if ($escolha == 1){
                     $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
                     $linhasTabela .= $tr;
                 }
+            break;
             case 3:
                 if($tarefa->getDataLimite()>=($_POST['dateIni'])&&($tarefa->getDataLimite()<=$_POST['dateFin'])){
                     $tr = '';
@@ -70,6 +72,7 @@ if ($escolha == 1){
                     $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
                     $linhasTabela .= $tr;
                 }
+            break;
             default:
 
         }
@@ -90,6 +93,7 @@ if ($escolha == 2){
                     $tr = str_replace('#MARCADO', $tarefa->getStatus() == 0 ? 'checked' : '', $tr);
                     $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
                     $linhasTabela .= $tr;
+                break;
                 case 2:
                     if($diaAtual == $tarefa->getDataLimite()){
                         $tr = '';
@@ -101,6 +105,7 @@ if ($escolha == 2){
                         $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
                         $linhasTabela .= $tr;
                     }
+                break;
                 case 3:
                     if($tarefa->getDataLimite()>=($_POST['dateIni'])&&($tarefa->getDataLimite()<=$_POST['dateFin'])){
                         $tr = '';
@@ -112,6 +117,7 @@ if ($escolha == 2){
                         $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
                         $linhasTabela .= $tr;
                     }
+                break;
                 default:
 
             }
@@ -132,6 +138,7 @@ if ($escolha == 3){
                     $tr = str_replace('#MARCADO', $tarefa->getStatus() == 0 ? 'checked' : '', $tr);
                     $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
                     $linhasTabela .= $tr;
+                break;
                 case 2:
                     if($diaAtual == $tarefa->getDataLimite()){
                         $tr = '';
@@ -143,6 +150,7 @@ if ($escolha == 3){
                         $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
                         $linhasTabela .= $tr;
                     }
+                break;
                 case 3:
                     if($tarefa->getDataLimite()>=($_POST['dateIni'])&&($tarefa->getDataLimite()<=$_POST['dateFin'])){
                         $tr = '';
@@ -154,6 +162,7 @@ if ($escolha == 3){
                         $tr = str_replace('#TODAS', $escolha == 1  ? 'selected' : '', $tr);
                         $linhasTabela .= $tr;
                     }
+                break;
                 default:    
         
             }
@@ -172,6 +181,7 @@ if ($escolha == 3){
 // }
 
 echo str_replace('#TAREFAS', $linhasTabela, $template);
+
 
 
 
